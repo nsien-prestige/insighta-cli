@@ -7,8 +7,9 @@
     "insighta": "./bin/insighta.js"
   },
   "scripts": {
-    "test": "jest --passWithNoTests",
-    "lint": "eslint . --ext .js"
+    "test": "npx jest --passWithNoTests",
+    "lint": "eslint . --ext .js",
+    "start": "node bin/insighta.js"
   },
   "repository": {
     "type": "git",
