@@ -22,10 +22,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
     (response) => response, // if successful, return the response as is
     async (error) => {
-        const originalRequest = err.config
+        const originalRequest = error.config
 
         // If we get a 401 error, it means the access token has expired
-        if (err.response?.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true // Mark the request as being retried
 
             const credentials = getCredentials()
@@ -67,3 +67,5 @@ api.interceptors.response.use(
         return Promise.reject(error) // For other errors, reject the promise
     }
 )
+
+module.exports = api

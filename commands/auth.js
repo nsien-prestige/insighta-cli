@@ -69,7 +69,8 @@ const login = async () => {
             try {
                 const response = await api.post('/auth/cli/callback', {
                     code,
-                    code_verifier: codeVerifier
+                    code_verifier: codeVerifier,
+                    redirect_uri: 'http://localhost:9876/callback'
                 })
 
                 const { access_token, refresh_token, user } = response.data
@@ -90,11 +91,15 @@ const login = async () => {
 
         server.listen(9876, () => {
             const params = new URLSearchParams({
+                client_id: process.env.GITHUB_CLIENT_ID,
+                redirect_uri: 'http://localhost:9876/callback',
+                scope: 'read:user user:email',
                 state,
-                code_challenge: codeChallenge
+                code_challenge: codeChallenge,
+                code_challenge_method: 'S256'
             })
 
-            const authUrl = `${process.env.API_URL || 'http://localhost:5000'}/auth/github?${params}`
+            const authUrl = `https://github.com/login/oauth/authorize?${params}`
 
             info('Opening browser for GitHub login...')
 

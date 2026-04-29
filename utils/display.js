@@ -12,17 +12,17 @@ const createSpinner = (text) => {
 
 // Success message in green
 const success = (message) => {
-    console.log(chalk.green('✓✓' + message))
+    console.log(chalk.green('✓ ' + message))
 }
 
 // Error message in red
 const error = (message) => {
-    console.error(chalk.red('✗✗' + message))
+    console.error(chalk.red('✗ ' + message))
 }
 
 // Info message in cyan
 const info = (message) => {
-    console.log(chalk.cyan('ℹ️' + message))
+    console.log(chalk.cyan('ℹ ' + message))
 }
 
 // Display profiles as a table
