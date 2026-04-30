@@ -66,6 +66,11 @@ profiles
     .action(profileCommands.create)
 
 profiles
+    .command('delete <id>')
+    .description('Delete a profile by ID (admin only)')
+    .action(profileCommands.deleteProfile)
+
+profiles
     .command('export')
     .description('Export profiles to CSV')
     .option('--format <format>', 'Export format (csv)')

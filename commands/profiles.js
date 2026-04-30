@@ -100,6 +100,26 @@ const create = async (options) => {
     }
 }
 
+const deleteProfile = async (id) => {
+    const spinner = createSpinner(`Deleting profile ${id}...`).start()
+
+    try {
+        await api.delete(`/api/profiles/${id}`)
+        spinner.stop()
+        success(`Profile ${id} deleted successfully`)
+
+    } catch (err) {
+        spinner.stop()
+        if (err.response?.status === 403) {
+            error('Permission denied: only admins can delete profiles')
+        } else if (err.response?.status === 404) {
+            error('Profile not found')
+        } else {
+            error(err.response?.data?.message || 'Failed to delete profile')
+        }
+    }
+}
+
 const exportProfiles = async (options) => {
     if (!options.format || options.format !== 'csv') {
         error('Format is required: --format csv')
@@ -135,4 +155,4 @@ const exportProfiles = async (options) => {
     }
 }
 
-module.exports = { list, get, search, create, exportProfiles }
+module.exports = { list, get, search, create, deleteProfile, exportProfiles }
