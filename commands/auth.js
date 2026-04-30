@@ -2,6 +2,7 @@ const http = require('http')
 const crypto = require('crypto')
 const { saveCredentials, getCredentials, clearCredentials } = require('../utils/auth')
 const api = require('../utils/api')
+const { GITHUB_CLI_CLIENT_ID } = require('../utils/config')
 const { success, error, info, userInfo, createSpinner } = require('../utils/display')
 
 const generateRandomString = (length = 64) => {
@@ -91,7 +92,7 @@ const login = async () => {
 
         server.listen(9876, () => {
             const params = new URLSearchParams({
-                client_id: process.env.GITHUB_CLIENT_ID,
+                client_id: GITHUB_CLI_CLIENT_ID,
                 redirect_uri: 'http://localhost:9876/callback',
                 scope: 'read:user user:email',
                 state,

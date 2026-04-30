@@ -1,8 +1,9 @@
 const axios = require("axios");
 const { getCredentials, clearCredentials, saveCredentials } = require("./auth");
+const { API_BASE_URL } = require('./config')
 
 const api = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:5000',
+    baseURL: API_BASE_URL,
     headers: {
         'X-API-Version': '1'
     }
@@ -39,7 +40,7 @@ api.interceptors.response.use(
             try {
                 // Try to refresh the token
                 const res = await axios.post(
-                    `${process.env.API_URL || 'http://localhost:5000'}/auth/refresh`,
+                    `${API_BASE_URL}/auth/refresh`,
                     { refresh_token: credentials.refresh_token }
                 )
 
